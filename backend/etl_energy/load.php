@@ -5,6 +5,17 @@ $data = include('transform.php');
 // config.php einbinden
 require_once '../config.php'; 
 
+function isDuplicate($pdo, $timestamp) {
+    try {
+        $sql = "SELECT COUNT(*) FROM entries WHERE timestamp = :timestamp";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['timestamp' => $timestamp]);
+        return $stmt->fetchColumn() > 0;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
+
 // try und catch ist, ich versuche mich mit der Datenbank zu verbinden und catch ist, wenn es nicht klappt
 try {
     // Erstellt eine neue PDO-Instanz - technisch Bezeichnung von Verbindung von PHP & Datenbank - mit der Konfiguration aus config.php
@@ -18,6 +29,7 @@ try {
 
     // Fügt jedes Element im Array in die Datenbank ein
     foreach ($data as $song) {
+    if (!isDuplicate($pdo, $entry['timestamp'])) {
         $stmt->execute([
             $song['date'],
             $song['artist'],
@@ -25,6 +37,8 @@ try {
             $song['sender']
         ]);
     }
+}
+
 
     echo "Daten erfolgreich eingefügt.";
 } catch (PDOException $e) {
