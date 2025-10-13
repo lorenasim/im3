@@ -11,10 +11,10 @@ try {
     $pdo = new PDO($dsn, $username, $password, $options);
 
     // -> sql befehl schreiben und ausführen
-    $sql = "SELECT * FROM xmas_songs";
+    $sql = "SELECT * FROM xmas_songs ORDER BY timestamp DESC LIMIT 1";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $results = $stmt->fetchAll();
+    $results = $stmt->fetch();
 
     // -> daten als json zurückgeben
     echo json_encode($results);
