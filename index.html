@@ -16,11 +16,21 @@
   </header>
 
   <div class="controls">
-    <div class="sender-buttons">
-      <button class="sender-btn active" data-sender="both">Beide</button>
-      <button class="sender-btn" data-sender="energy">NRJ</button>
-      <button class="sender-btn" data-sender="srf">SRF</button>
-    </div>
+    <form class="sender-buttons">
+      <label>
+        <input type="radio" name="sender" value="both" checked>
+        Beide
+      </label>
+      <label>
+        <input type="radio" name="sender" value="energy">
+        NRJ
+      </label>
+      <label>
+        <input type="radio" name="sender" value="srf">
+        SRF
+      </label>
+    </form>
+
     <input type="date" id="datepicker" />
   </div>
 

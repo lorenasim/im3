@@ -17,15 +17,15 @@ $sender = $_GET['sender'];
 if ($sender = 'both') {
 $sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date";
 } else {
-$sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date AND sender = : sender";
+$sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date AND sender = :sender";
 }
 
 $stmt = $pdo->prepare($sql) ;
 
 if ($sender == 'both') {
-$stmt = execute(['date' => $date]);
+$stmt->execute(['date' => $date]);
 } else{
-$stmt = execute( ['date' => $date, 'sender' => $sender]);
+$stmt->execute( ['date' => $date, 'sender' => $sender]);
 }
 $results = $stmt->fetchAll();
 
