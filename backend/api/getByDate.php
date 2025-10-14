@@ -11,8 +11,8 @@ try {
     $pdo = new PDO($dsn, $username, $password, $options);
 
 // sql befehl schreiben und ausführen
-$date = $_GET ['date'];
-$sender = $_GET ['sender'];
+$date = $_GET['date'];
+$sender = $_GET['sender'];
 
 if ($sender = 'both') {
 $sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date";
@@ -20,14 +20,14 @@ $sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date";
 $sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date AND sender = : sender";
 }
 
-$stmt = $pdo→>prepare($sql) ;
+$stmt = $pdo->prepare($sql) ;
 
-if ($sender = 'both') {
-$stmt = execute(['date' →> $date]);
+if ($sender == 'both') {
+$stmt = execute(['date' => $date]);
 } else{
-$stmt = execute( ['date' => $date, 'sender' →> $sender]);
+$stmt = execute( ['date' => $date, 'sender' => $sender]);
 }
-$results = $stmt→>fetchAll();
+$results = $stmt->fetchAll();
 
 // -> daten als json zurückgeben
     echo json_encode($results);
