@@ -1,3 +1,5 @@
+// --- ALLES IN EINEM MODULE (type="module" in HTML!) --- //
+
 // -> getAll.php (alles laden)
 async function getAll() {
     const url = 'https://im3.lorenasimonelli.ch/backend/api/getAll.php';
@@ -6,13 +8,11 @@ async function getAll() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error)
+        console.error('Fehler bei getAll:', error);
     }
 }
-const all = await getAll();
-console.log('all', all);
 
-// -> getByDate.php (GET-parameter mitgeben)
+// -> getByDate.php (GET-Parameter mitgeben)
 async function getByDate(date, sender) {
     const url = `https://im3.lorenasimonelli.ch/backend/api/getByDate.php?date=${date}&sender=${sender}`;
     try {
@@ -20,13 +20,50 @@ async function getByDate(date, sender) {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error)
+        console.error('Fehler bei getByDate:', error);
     }
 }
 
-const date_picker = document.querySelector('#datepicker');
-date_picker.addEventListener('input', async function() {
-    const date = date_picker.value;
-    const byDate = await getByDate(date, 'both');
-    console.log('byDate', byDate);
-})
+// --- Variablen & DOM-Elemente --- //
+const datePicker = document.querySelector('#datepicker');
+const senderRadios = document.querySelectorAll('input[name="sender"]');
+
+let currentSender = 'both'; // Standardwert
+let currentDate = null;
+
+// --- Initiale Daten laden (optional) --- //
+(async () => {
+    const all = await getAll();
+    console.log('Alle Daten beim Laden:', all);
+    // TODO: hier ggf. erste Bubbles anzeigen
+})();
+
+// --- EventListener: Datumsauswahl --- //
+datePicker.addEventListener('input', async function() {
+    currentDate = datePicker.value;
+    console.log('Datum geändert auf:', currentDate);
+
+    const data = await getByDate(currentDate, currentSender);
+    console.log('API-Aufruf bei Datumsauswahl:', { date: currentDate, sender: currentSender, data });
+
+    // TODO: hier später: Funktion zum Aktualisieren der Bubbles aufrufen
+});
+
+// --- EventListener: Senderwechsel --- //
+senderRadios.forEach(radio => {
+    radio.addEventListener('change', async function() {
+        currentSender = this.value;
+        console.log('Sender geändert auf:', currentSender);
+
+        if (currentDate) {
+            const data = await getByDate(currentDate, currentSender);
+            console.log('API-Aufruf bei Senderwechsel:', { date: currentDate, sender: currentSender, data });
+
+            // TODO: hier später: Bubbles aktualisieren
+        } else {
+            // Wenn noch kein Datum gewählt ist → optional: alles laden
+            const data = await getAll();
+            console.log('API-Aufruf ohne Datum (alle Daten):', data);
+        }
+    });
+});
