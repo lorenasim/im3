@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoe! Hoe! Hoe! Hits</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hoe! Hoe! Hoe! Hits</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header>
-<h1>HOE!</h1>
-<h1>HOE!</h1>
-<h1>HOE!</h1>
-<h1>HITS</h1>
-</header>
+  <header>
+    <h1>HOE!</h1>
+    <h1>HOE!</h1>
+    <h1>HOE!</h1>
+    <h1>HITS</h1>
+  </header>
 
-<div class="background">
-    <img src="img/background.jpg" alt="background" />
+  <div class="controls">
+    <div class="sender-buttons">
+      <button class="sender-btn active" data-sender="both">Beide</button>
+      <button class="sender-btn" data-sender="energy">NRJ</button>
+      <button class="sender-btn" data-sender="srf">SRF</button>
+    </div>
+    <input type="date" id="datepicker" />
   </div>
 
-<div class="christbaum">
-  <img src="img/christbaum.png" alt="christbaum">
+  <div class="tree-container">
+    <img src="img/christbaum.png" alt="Weihnachtsbaum" class="tree" />
+    <div id="bubble"></div>
+  </div>
 
   <div class="zettel">
     <p>
@@ -32,8 +38,6 @@
     </p>
   </div>
 
-    <input type="date" name="datepicker" id="datepicker">
-    <script type="module" src="script.js"> </script>
-
+  <script type="module" src="script.js"></script>
 </body>
 </html>
