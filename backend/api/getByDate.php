@@ -14,7 +14,7 @@ try {
 $date = $_GET['date'];
 $sender = $_GET['sender'];
 
-if ($sender = 'both') {
+if ($sender == 'both') {
 $sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date";
 } else {
 $sql = "SELECT * FROM xmas_songs WHERE DATE (timestamp) = :date AND sender = :sender";

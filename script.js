@@ -51,8 +51,8 @@ datePicker.addEventListener('input', async function() {
 
 // --- EventListener: Senderwechsel --- //
 senderRadios.forEach(radio => {
-    radio.addEventListener('change', async function() {
-        currentSender = this.value;
+    radio.addEventListener('change', async function(e) {
+        currentSender = e.target.value;
         console.log('Sender geändert auf:', currentSender);
 
         if (currentDate) {

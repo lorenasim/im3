@@ -7,7 +7,7 @@ require_once '../config.php';
 
 function isDuplicate($pdo, $timestamp) {
     try {
-        $sql = "SELECT COUNT(*) FROM entries WHERE timestamp = :timestamp";
+        $sql = "SELECT COUNT(*) FROM xmas_songs WHERE timestamp = :timestamp";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['timestamp' => $timestamp]);
         return $stmt->fetchColumn() > 0;
@@ -29,7 +29,7 @@ try {
 
     // Fügt jedes Element im Array in die Datenbank ein
     foreach ($data as $song) {
-    if (!isDuplicate($pdo, $entry['timestamp'])) {
+    if (!isDuplicate($pdo, $song['date'])) {
         $stmt->execute([
             $song['date'],
             $song['artist'],
