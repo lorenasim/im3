@@ -5,23 +5,12 @@ $data = include('extract.php');
 
 $filtered_songlist = array_filter($data, function($value, $key) {
     $allowed_songs = [
-        ['title' => 'manchild', 'artist' => 'sabrina carpenter'],
-        ['title' => 'survive', 'artist' => 'lewis capaldi'],
-        ['title' => 'bad romance', 'artist' => 'lady gaga'],
-        ['title' => 'abracadabra', 'artist' => 'lady gaga'],
+        ['title' => 'mistletoe', 'artist' => 'justin bieber'],
+        ['title' => 'last christmas', 'artist' => 'wham!'],
+        ['title' => 'let it snow! let it snow! let it snow!', 'artist' => 'dean martin'],
+        ['title' => 'snowman', 'artist' => 'sia'],
         ['title' => 'heat', 'artist' => 'anna rossinelli'],
-        ['title' => 'as it was', 'artist' => 'harry styles'],
-        ['title' => 'messy', 'artist' => 'lola young'],
-        ['title' => 'ordinary', 'artist' => 'alex warren'],
-        ['title' => 'end of the world', 'artist' => 'miley cyrus'],
-        ['title' => 'back to friends', 'artist' => 'sombr'],
-        ['title' => 'home pt. 2', 'artist' => 'nico santos'],
-        ['title' => 'the one', 'artist' => 'michael patrick kelly'],
-        ['title' => 'beautiful people', 'artist' => 'david guetta & sia'],
-        ['title' => 'anthem', 'artist' => 'glockenbach & norma jean martine'],
-        ['title' => 'from disco to disco', 'artist' => 'alle farben & majestic'],
-        ['title' => 'show me love', 'artist' => 'wizthemc & bees & honey'],
-        ['title' => 'good 4 u', 'artist' => 'olivia rodrigo'],
+        ['title' => 'all i want for christmas is you', 'artist' => 'mariah carey'],
         
 
     ];
