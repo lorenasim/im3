@@ -10,7 +10,6 @@ $filtered_songlist = array_filter($songlist, function($value, $key) {
         ['title' => 'last christmas', 'artist' => 'wham!'],
         ['title' => 'let it snow! let it snow! let it snow!', 'artist' => 'dean martin'],
         ['title' => 'snowman', 'artist' => 'sia'],
-        ['title' => 'heat', 'artist' => 'anna rossinelli'],
         ['title' => 'all i want for christmas is you', 'artist' => 'mariah carey'],
         
 
