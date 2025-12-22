@@ -5,40 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hoe! Hoe! Hoe! Hits</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Barlow:ital,wght@0,700;0,800;1,800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <header>
-    <h1>HOE!</h1>
-    <h1>HOE!</h1>
-    <h1>HOE!</h1>
-    <h1>HITS</h1>
+  <header class="logo-header">
+    <span class="logo-word word1">HOE!</span>
+    <span class="logo-word word2">HOE!</span>
+    <span class="logo-word word3">HOE!</span>
+    <span class="logo-word word4">HITS</span>
   </header>
 
   <div class="controls">
-    <form class="sender-buttons">
-      <label>
-        <input type="radio" name="sender" value="both" checked>
-        Beide
-      </label>
-      <label>
-        <input type="radio" name="sender" value="energy">
-        NRJ
-      </label>
-      <label>
-        <input type="radio" name="sender" value="srf">
-        SRF
-      </label>
-    </form>
+    <div class="sender-section">
+      <div class="sender-label-title" style="color: white; font-size: 1.4rem; margin-bottom: 8px; text-align: center;">Wähle einen Sender</div>
+      <form class="sender-buttons">
+        <label><input type="radio" name="sender" value="both" checked> Beide</label>
+        <label><input type="radio" name="sender" value="energy"> NRJ</label>
+        <label><input type="radio" name="sender" value="srf"> SRF</label>
+      </form>
+    </div>
 
-    <input type="date" id="datepicker" />
+    <div class="date-wrapper">
+      <span style="font-size: 1.4rem; color: white;">Datum</span>
+      <input type="date" id="datepicker" />
+    </div>
   </div>
 
   <div class="tree-container">
     <img src="img/christbaum.png" alt="Weihnachtsbaum" class="tree" />
-    <div id="bubble"></div>
+    <div id="bubbles"></div>
   </div>
 
   <div class="zettel">
