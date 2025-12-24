@@ -49,7 +49,7 @@ body {
   max-width: 1200px; 
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 0 20px; 
   margin-top: 30px; 
   color: white;
@@ -75,23 +75,7 @@ body {
   border: none;
   font-size: 1.3rem;
   font-weight: 700;
-}
-
-/* --- Baum (Container) --- */
-.tree-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 600px;
-  margin-top: -160px; /* Desktop-Look */
-  z-index: 1;
-}
-
-.tree {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 15px rgba(255,255,255,0.6));
+  margin-top: 40px;
 }
 
 /* --- Der Zettel --- */
@@ -111,7 +95,84 @@ body {
   box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.4);
   /* Abrisskante unten */
   clip-path: polygon(0% 0%, 100% 0%, 98% 25%, 100% 50%, 99% 75%, 100% 100%, 85% 96%, 72% 99%, 58% 95%, 45% 98%, 30% 94%, 15% 97%, 0% 96%);
+  pointer-events: none;
 }
+
+
+.bubbles {
+  position: absolute;
+  inset: 0;
+}
+
+.bubbles2 {
+  position: absolute;
+  inset: 0;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  border: 4px solid white;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+  z-index: 2; /* VORDERGRUND */
+}
+
+.bubble2 {
+  position: absolute;
+  border-radius: 50%;
+  border: 4px solid rgb(254, 0, 0);
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.bubble:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+.bubble2:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+.bubble-wham   { top: 85%; left: 40%; width: 80px; height: 80px; }
+.bubble-mariah { top: 62%; left: 47.5%; width: 80px; height: 80px; }
+.bubble-dean   { top: 110%; left: 50%; width: 70px; height: 70px; }
+.bubble-sia    { top: 90%; left: 48%; width: 70px; height: 70px; }
+.bubble-justin { top: 105%; left: 61%; width: 70px; height: 70px; }
+
+.bubble-wham2   { top: 80%; left: 54%; width: 80px; height: 80px; }
+.bubble-mariah2 { top: 98%; left: 53%; width: 80px; height: 80px; }
+.bubble-dean2   { top: 77%; left: 48%; width: 70px; height: 70px; }
+.bubble-sia2    { top: 103%; left: 38%; width: 70px; height: 70px; }
+.bubble-justin2 { top: 100%; left: 45%; width: 70px; height: 70px; }
+
+/* --- Baum (Container) --- */
+.tree-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: -160px; /* Desktop-Look */
+  z-index: 0;
+}
+
+.tree {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 15px rgba(255,255,255,0.6));
+  z-index: 0; /* HINTERGRUND */
+  pointer-events: none;
+}
+
 
 /* --- MOBILE OPTIMIERUNG --- */
 @media (max-width: 768px) {
@@ -129,6 +190,7 @@ body {
   .sender-buttons {
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 40px;
     gap: 8px;
   }
 
