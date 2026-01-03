@@ -1,4 +1,6 @@
 // --- ALLES IN EINEM MODULE (type="module") --- //
+let songStats = [];
+
 
 // -> getAll.php (alles laden)
 async function getAll() {
