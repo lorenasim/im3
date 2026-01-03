@@ -1,82 +1,89 @@
 // --- ALLES IN EINEM MODULE (type="module") --- //
-let songStats = [];
-
-
-// -> getAll.php (alles laden)
-async function getAll() {
-    const url = 'https://im3.lorenasimonelli.ch/backend/api/getAll.php';
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Fehler bei getAll:', error);
-    }
-}
-
-// -> getByDate.php (GET-Parameter mitgeben)
-async function getByDate(date, sender) {
-    const url = `https://im3.lorenasimonelli.ch/backend/api/getByDate.php?date=${date}&sender=${sender}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Fehler bei getByDate:', error);
-    }
-}
-
-// --- Variablen & DOM-Elemente ---
+let songStats = []; 
+const tooltip = document.querySelector('#tooltip');
 const datePicker = document.querySelector('#datepicker');
 const senderRadios = document.querySelectorAll('input[name="sender"]');
-let currentSender = 'both'; // Standardwert
+const allBubbles = document.querySelectorAll('.bubble, .bubble2');
+
+let currentSender = 'both'; 
 let currentDate = null;
 
-// --- Funktion: Bubbles nach Sender anzeigen/verstecken ---
-function updateBubbles(sender) {
-    const bubbleWhite = document.querySelectorAll('.bubble');   // weiße Bubbles (CSS)
-    const bubbleRed   = document.querySelectorAll('.bubble2');  // rote Bubbles (CSS)
-
-    if (sender === 'both') {
-        bubbleWhite.forEach(b => b.style.display = 'block');
-        bubbleRed.forEach(b => b.style.display = 'block');
-    } else if (sender === 'srf') {
-        bubbleWhite.forEach(b => b.style.display = 'block');
-        bubbleRed.forEach(b => b.style.display = 'none');
-    } else if (sender === 'energy') {
-        bubbleWhite.forEach(b => b.style.display = 'none');
-        bubbleRed.forEach(b => b.style.display = 'block');
+// API Aufruf mit Fehlerprüfung
+async function getByDate(date, sender) {
+    const url = `https://im3.lorenasimonelli.ch/backend/api/getByDate.php?date=${date}&sender=${sender}`;
+    console.log("Rufe API auf:", url);
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        // Sicherstellen, dass data ein Array ist
+        songStats = Array.isArray(data) ? data : [];
+        console.log("API Daten empfangen:", songStats);
+        
+        return songStats;
+    } catch (error) {
+        console.error('API Fehler:', error);
+        songStats = [];
     }
 }
 
-// --- Initiale Anzeige der Bubbles ---
-updateBubbles(currentSender);
+// Tooltip Interaktion
+allBubbles.forEach(bubble => {
+    bubble.addEventListener('mouseenter', (e) => {
+        // Wir nehmen den data-song Wert und trimmen ihn zur Sicherheit
+        const songTitleAttr = e.target.getAttribute('data-song').toLowerCase().trim();
+        const isEnergy = e.target.classList.contains('bubble2');
+        const displaySender = isEnergy ? "NRJ" : "SRF 1";
 
-// --- EventListener: Datumsauswahl ---
-datePicker.addEventListener('input', async function() {
-    currentDate = datePicker.value;
-    console.log('Datum geändert auf:', currentDate);
+        // Filter-Logik: Wir prüfen, ob der Titel aus der DB den Titel aus dem HTML enthält
+        const count = songStats.filter(s => {
+            const dbTitle = s.title ? s.title.toLowerCase().trim() : "";
+            // Wir prüfen auf Teil-Übereinstimmung (Fuzzy Match), falls ! oder Leerschläge variieren
+            return dbTitle.includes(songTitleAttr) || songTitleAttr.includes(dbTitle);
+        }).length;
 
-    const data = await getByDate(currentDate, currentSender);
-    console.log('API-Aufruf bei Datumsauswahl:', { date: currentDate, sender: currentSender, data });
+        tooltip.innerHTML = `
+            <b>«${e.target.getAttribute('data-song')}»</b>
+            <span>wurde ${count}x auf<br>${displaySender} gespielt.</span>
+        `;
+        tooltip.style.opacity = '1';
+    });
 
-    // Optional: hier später Bubbles dynamisch anpassen
+    bubble.addEventListener('mousemove', (e) => {
+        tooltip.style.left = (e.pageX + 15) + 'px';
+        tooltip.style.top = (e.pageY - 15) + 'px';
+    });
+
+    bubble.addEventListener('mouseleave', () => {
+        tooltip.style.opacity = '0';
+    });
 });
 
-// --- EventListener: Senderwechsel ---
+// Bubble Filterung
+function updateBubbles(sender) {
+    const bubbleWhite = document.querySelectorAll('.bubble');
+    const bubbleRed   = document.querySelectorAll('.bubble2');
+
+    bubbleWhite.forEach(b => b.style.display = (sender === 'both' || sender === 'srf') ? 'block' : 'none');
+    bubbleRed.forEach(b => b.style.display = (sender === 'both' || sender === 'energy') ? 'block' : 'none');
+}
+
+// Event Listeners
+datePicker.addEventListener('input', async function() {
+    currentDate = datePicker.value; // Format: YYYY-MM-DD
+    await getByDate(currentDate, currentSender);
+});
+
 senderRadios.forEach(radio => {
     radio.addEventListener('change', async function(e) {
         currentSender = e.target.value;
-
-        // Bubbles filtern
         updateBubbles(currentSender);
-
         if (currentDate) {
-            const data = await getByDate(currentDate, currentSender);
-            console.log('API-Aufruf bei Senderwechsel:', { date: currentDate, sender: currentSender, data });
-        } else {
-            const data = await getAll();
-            console.log('API-Aufruf ohne Datum (alle Daten):', data);
+            await getByDate(currentDate, currentSender);
         }
     });
 });
+
+// Initialer Aufruf
+updateBubbles(currentSender);

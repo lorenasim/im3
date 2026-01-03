@@ -1,8 +1,6 @@
 /* --- Grundlayout --- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; padding: 0; box-sizing: border-box;
   font-family: "Barlow", sans-serif;
 }
 
@@ -19,205 +17,101 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Header / Logo --- */
+/* --- Header & Controls --- */
 .logo-header {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 10px;
-  margin-top: 150px; 
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 1200px; 
+  display: flex; justify-content: center; align-items: flex-end; gap: 10px;
+  margin-top: 150px; flex-wrap: wrap; width: 100%; max-width: 1200px; 
 }
 
 .logo-word {
-  color: #bc1111;
-  font-family: 'Luckiest Guy', cursive;
-  font-size: clamp(45px, 12vw, 150px);
-  line-height: 0.8;
-  padding: 0 6px;
-  -webkit-text-stroke: 8px white;
-  text-stroke: 8px white;
-  paint-order: stroke fill;
+  color: #bc1111; font-family: 'Luckiest Guy', cursive;
+  font-size: clamp(45px, 12vw, 150px); line-height: 0.8; padding: 0 6px;
+  -webkit-text-stroke: 8px white; paint-order: stroke fill;
   text-shadow: 0 6px 0 rgba(0,0,0,0.3);
 }
 
-/* --- Steuerung --- */
 .controls {
-  width: 100%;
-  max-width: 1200px; 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px; 
-  margin-top: 30px; 
-  color: white;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
-  position: relative;
-  z-index: 10;
+  width: 100%; max-width: 1200px; display: flex; justify-content: space-between;
+  align-items: center; padding: 0 20px; margin-top: 30px; color: white;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.9); position: relative; z-index: 10;
 }
 
 .sender-buttons label {
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 10px 18px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1.3rem;
-  font-weight: 700;
+  color: white; background: rgba(0, 0, 0, 0.5); padding: 10px 18px;
+  border-radius: 12px; cursor: pointer; font-size: 1.3rem; font-weight: 700;
   border: 2px solid rgba(255,255,255,0.4);
 }
 
 #datepicker {
-  padding: 10px 18px;
-  border-radius: 12px;
-  border: none;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-top: 40px;
+  padding: 10px 18px; border-radius: 12px; border: none;
+  font-size: 1.3rem; font-weight: 700; margin-top: 40px;
 }
 
-/* --- Der Zettel --- */
-.zettel {
-  background: white;
-  background-image: linear-gradient(#e1e9f1 1px, transparent 1px);
-  background-size: 100% 1.6em;
-  padding: 50px 60px 90px 60px; 
-  width: 90%;
-  max-width: 900px; 
-  margin: 40px auto 100px auto;
-  color: #000;
-  font-weight: 800;
-  font-style: italic;
-  font-size: 1.4rem;
-  line-height: 1.6em;
-  box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.4);
-  /* Abrisskante unten */
-  clip-path: polygon(0% 0%, 100% 0%, 98% 25%, 100% 50%, 99% 75%, 100% 100%, 85% 96%, 72% 99%, 58% 95%, 45% 98%, 30% 94%, 15% 97%, 0% 96%);
-  pointer-events: none;
-}
-
-
-.bubbles {
-  position: absolute;
-  inset: 0;
-}
-
-.bubbles2 {
-  position: absolute;
-  inset: 0;
-}
-
-.bubble {
-  position: absolute;
-  border-radius: 50%;
-  border: 4px solid white;
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease;
-  z-index: 2; /* VORDERGRUND */
-}
-
-.bubble2 {
-  position: absolute;
-  border-radius: 50%;
-  border: 4px solid rgb(254, 0, 0);
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease;
-}
-
-.bubble:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease;
-}
-
-.bubble2:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease;
-}
-
-.bubble-wham   { top: 85%; left: 40%; width: 80px; height: 80px; }
-.bubble-mariah { top: 62%; left: 47.5%; width: 80px; height: 80px; }
-.bubble-dean   { top: 110%; left: 50%; width: 70px; height: 70px; }
-.bubble-sia    { top: 90%; left: 48%; width: 70px; height: 70px; }
-.bubble-justin { top: 105%; left: 61%; width: 70px; height: 70px; }
-
-.bubble-wham2   { top: 80%; left: 54%; width: 80px; height: 80px; }
-.bubble-mariah2 { top: 98%; left: 53%; width: 80px; height: 80px; }
-.bubble-dean2   { top: 77%; left: 48%; width: 70px; height: 70px; }
-.bubble-sia2    { top: 103%; left: 38%; width: 70px; height: 70px; }
-.bubble-justin2 { top: 100%; left: 45%; width: 70px; height: 70px; }
-
-/* --- Baum (Container) --- */
+/* --- Baum & Bubbles (Fixierung am Baum) --- */
 .tree-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 600px;
-  margin-top: -160px; /* Desktop-Look */
-  z-index: 0;
+  position: relative; /* WICHTIG: Bezugspunkt für Kugeln */
+  display: flex; justify-content: center;
+  width: 100%; max-width: 600px; margin-top: -160px; z-index: 5;
 }
 
 .tree {
-  width: 100%;
-  height: auto;
+  width: 100%; height: auto;
   filter: drop-shadow(0 0 15px rgba(255,255,255,0.6));
-  z-index: 0; /* HINTERGRUND */
   pointer-events: none;
 }
 
+.bubbles, .bubbles2 {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.bubble, .bubble2 {
+  position: absolute; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4); transition: transform 0.2s ease;
+  pointer-events: auto;
+}
+
+.bubble  { border: 4px solid white; z-index: 10; }
+.bubble2 { border: 4px solid rgb(254, 0, 0); z-index: 11; }
+
+.bubble:hover, .bubble2:hover { transform: scale(1.2); }
+
+/* --- Positionen am Baum --- */
+.bubble-mariah { top: 25%; left: 43%; width: 80px; height: 80px; }
+.bubble-wham   { top: 55%; left: 25%; width: 80px; height: 80px; }
+.bubble-sia    { top: 60%; left: 45%; width: 70px; height: 70px; }
+.bubble-dean   { top: 40%; left: 32%; width: 70px; height: 70px; }
+.bubble-justin { top: 65%; left: 75%; width: 70px; height: 70px; }
+
+.bubble-mariah2 { top: 35%; left: 52%; width: 80px; height: 80px; }
+.bubble-wham2   { top: 52%; left: 60%; width: 80px; height: 80px; }
+.bubble-dean2   { top: 65%; left: 15%; width: 70px; height: 70px; }
+.bubble-sia2    { top: 72%; left: 55%; width: 70px; height: 70px; }
+.bubble-justin2 { top: 48%; left: 42%; width: 70px; height: 70px; }
+
+/* --- Tooltip (Sprechblasen-Look) --- */
 .tooltip {
-  position: absolute;
-  background: white;
-  color: #c00;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 14px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  z-index: 9999;
+  position: absolute; background: white; color: #333;
+  padding: 12px 18px; border-radius: 15px; font-size: 14px;
+  line-height: 1.4; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  pointer-events: none; opacity: 0; transition: opacity 0.2s ease;
+  z-index: 9999; min-width: 160px; border: 1px solid #f0f0f0;
+}
+.tooltip b { color: #bc1111; display: block; font-style: italic; margin-bottom: 4px; }
+.tooltip span { color: #d14d4d; }
+
+.zettel {
+  background: white; background-image: linear-gradient(#e1e9f1 1px, transparent 1px);
+  background-size: 100% 1.6em; padding: 50px 60px 90px 60px; width: 90%;
+  max-width: 900px; margin: 40px auto 100px auto; color: #000;
+  font-weight: 800; font-style: italic; font-size: 1.4rem; line-height: 1.6em;
+  box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.4);
+  clip-path: polygon(0% 0%, 100% 0%, 98% 25%, 100% 50%, 99% 75%, 100% 100%, 85% 96%, 72% 99%, 58% 95%, 45% 98%, 30% 94%, 15% 97%, 0% 96%);
 }
 
-
-
-/* --- MOBILE OPTIMIERUNG --- */
 @media (max-width: 768px) {
-  .logo-header { 
-    margin-top: 50px; /* Weniger Platz oben auf Mobile */
-  }
-
-  .controls {
-    flex-direction: column; /* Stapelt Sender und Datum */
-    align-items: center;
-    gap: 15px;
-    margin-top: 15px;
-  }
-
-  .sender-buttons {
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 40px;
-    gap: 8px;
-  }
-
-  .tree-container {
-    margin-top: 30px; /* Zieht den Baum NICHT mehr nach oben */
-    max-width: 250px; /* Baum wird auf Mobile klein */
-  }
-
-  .zettel {
-    width: 92%; /* Schmaler auf Mobile */
-    padding: 30px 20px 60px 20px;
-    font-size: 1.1rem;
-    margin-top: 30px;
-  }
+  .logo-header { margin-top: 50px; }
+  .controls { flex-direction: column; gap: 15px; }
+  .tree-container { margin-top: 30px; max-width: 300px; }
+  .bubble, .bubble2 { width: 45px !important; height: 45px !important; }
 }
