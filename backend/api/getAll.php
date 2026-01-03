@@ -3,6 +3,9 @@
 // -> datenbankkonfiguration laden
 require_once '../config.php';
 
+// -> Erlaubt den Zugriff von anderen Quellen (behebt den CORS-Fehler)
+header('Access-Control-Allow-Origin: *');
+
 // -> auf json einstellen
 header('Content-Type: application/json');
 

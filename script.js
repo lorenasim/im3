@@ -1,29 +1,25 @@
-// --- ALLES IN EINEM MODULE (type="module") --- //
+// --- ALLES IN EINEM MODULE --- //
 let songStats = []; 
-const tooltip = document.querySelector('#tooltip');
+
 const datePicker = document.querySelector('#datepicker');
 const senderRadios = document.querySelectorAll('input[name="sender"]');
+const tooltip = document.querySelector('#tooltip');
 const allBubbles = document.querySelectorAll('.bubble, .bubble2');
 
 let currentSender = 'both'; 
 let currentDate = null;
 
-// API Aufruf mit Fehlerprüfung
+// Daten von API laden
 async function getByDate(date, sender) {
     const url = `https://im3.lorenasimonelli.ch/backend/api/getByDate.php?date=${date}&sender=${sender}`;
-    console.log("Rufe API auf:", url);
-    
     try {
         const response = await fetch(url);
         const data = await response.json();
-        
-        // Sicherstellen, dass data ein Array ist
-        songStats = Array.isArray(data) ? data : [];
-        console.log("API Daten empfangen:", songStats);
-        
-        return songStats;
+        songStats = Array.isArray(data) ? data : []; 
+        console.log('Daten geladen für:', date, sender, songStats);
+        return data;
     } catch (error) {
-        console.error('API Fehler:', error);
+        console.error('Fehler bei getByDate:', error);
         songStats = [];
     }
 }
@@ -31,21 +27,25 @@ async function getByDate(date, sender) {
 // Tooltip Interaktion
 allBubbles.forEach(bubble => {
     bubble.addEventListener('mouseenter', (e) => {
-        // Wir nehmen den data-song Wert und trimmen ihn zur Sicherheit
-        const songTitleAttr = e.target.getAttribute('data-song').toLowerCase().trim();
-        const isEnergy = e.target.classList.contains('bubble2');
-        const displaySender = isEnergy ? "NRJ" : "SRF 1";
+        const songToFind = e.target.getAttribute('data-song').toLowerCase();
+        
+        // Identifiziere den Sender basierend auf der Kugel-Klasse
+        // .bubble2 = Energy (rot), .bubble = SRF (weiß)
+        const isEnergyBubble = e.target.classList.contains('bubble2');
+        const targetSender = isEnergyBubble ? "energy" : "srf";
+        const stationLabel = isEnergyBubble ? "NRJ" : "SRF 1";
 
-        // Filter-Logik: Wir prüfen, ob der Titel aus der DB den Titel aus dem HTML enthält
+        // Filtert die songStats nach Titel UND dem Sender der Kugel
         const count = songStats.filter(s => {
-            const dbTitle = s.title ? s.title.toLowerCase().trim() : "";
-            // Wir prüfen auf Teil-Übereinstimmung (Fuzzy Match), falls ! oder Leerschläge variieren
-            return dbTitle.includes(songTitleAttr) || songTitleAttr.includes(dbTitle);
+            const titleMatches = s.title && s.title.toLowerCase().includes(songToFind);
+            const senderMatches = s.sender === targetSender;
+            return titleMatches && senderMatches;
         }).length;
 
+        // Tooltip befüllen (Design bleibt exakt wie in deinem Screenshot)
         tooltip.innerHTML = `
-            <b>«${e.target.getAttribute('data-song')}»</b>
-            <span>wurde ${count}x auf<br>${displaySender} gespielt.</span>
+            <b style="color: #bc1111; font-style: italic; display: block;">«${e.target.getAttribute('data-song')}»</b>
+            <span style="color: #bc1111;">wurde ${count}x auf<br>${stationLabel} gespielt.</span>
         `;
         tooltip.style.opacity = '1';
     });
@@ -60,18 +60,26 @@ allBubbles.forEach(bubble => {
     });
 });
 
-// Bubble Filterung
+// Sender-Filter (Anzeige der Kugeln)
 function updateBubbles(sender) {
     const bubbleWhite = document.querySelectorAll('.bubble');
     const bubbleRed   = document.querySelectorAll('.bubble2');
 
-    bubbleWhite.forEach(b => b.style.display = (sender === 'both' || sender === 'srf') ? 'block' : 'none');
-    bubbleRed.forEach(b => b.style.display = (sender === 'both' || sender === 'energy') ? 'block' : 'none');
+    if (sender === 'both') {
+        bubbleWhite.forEach(b => b.style.display = 'block');
+        bubbleRed.forEach(b => b.style.display = 'block');
+    } else if (sender === 'srf') {
+        bubbleWhite.forEach(b => b.style.display = 'block');
+        bubbleRed.forEach(b => b.style.display = 'none');
+    } else if (sender === 'energy') {
+        bubbleWhite.forEach(b => b.style.display = 'none');
+        bubbleRed.forEach(b => b.style.display = 'block');
+    }
 }
 
-// Event Listeners
+// EventListener
 datePicker.addEventListener('input', async function() {
-    currentDate = datePicker.value; // Format: YYYY-MM-DD
+    currentDate = datePicker.value;
     await getByDate(currentDate, currentSender);
 });
 
@@ -85,5 +93,5 @@ senderRadios.forEach(radio => {
     });
 });
 
-// Initialer Aufruf
+// Initialisierung
 updateBubbles(currentSender);
