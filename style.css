@@ -1,6 +1,8 @@
 /* --- Grundlayout --- */
 * {
-  margin: 0; padding: 0; box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Barlow", sans-serif;
 }
 
@@ -17,66 +19,121 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Header & Controls --- */
+/* --- Header & Logo --- */
 .logo-header {
-  display: flex; justify-content: center; align-items: flex-end; gap: 10px;
-  margin-top: 150px; flex-wrap: wrap; width: 100%; max-width: 1200px; 
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 150px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .logo-word {
-  color: #bc1111; font-family: 'Luckiest Guy', cursive;
-  font-size: clamp(45px, 12vw, 150px); line-height: 0.8; padding: 0 6px;
-  -webkit-text-stroke: 8px white; paint-order: stroke fill;
-  text-shadow: 0 6px 0 rgba(0,0,0,0.3);
+  color: #bc1111;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: clamp(45px, 12vw, 150px);
+  line-height: 0.8;
+  padding: 0 6px;
+  -webkit-text-stroke: 8px white;
+  paint-order: stroke fill;
+  text-shadow: 0 6px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* --- Controls (Filter & Datum) --- */
 .controls {
-  width: 100%; max-width: 1200px; display: flex; justify-content: space-between;
-  align-items: center; padding: 0 20px; margin-top: 30px; color: white;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.9); position: relative; z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 30px;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+  position: relative;
+  z-index: 10;
+}
+
+.sender-label-title {
+  color: white;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .sender-buttons label {
-  color: white; background: rgba(0, 0, 0, 0.5); padding: 10px 18px;
-  border-radius: 12px; cursor: pointer; font-size: 1.3rem; font-weight: 700;
-  border: 2px solid rgba(255,255,255,0.4);
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  margin-right: 5px;
+}
+
+.date-label {
+  font-size: 1.4rem;
+  color: white;
+  margin-right: 20px;
 }
 
 #datepicker {
-  padding: 10px 18px; border-radius: 12px; border: none;
-  font-size: 1.3rem; font-weight: 700; margin-top: 40px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-/* --- Baum & Bubbles (Fixierung am Baum) --- */
+/* --- Baum & Bubbles --- */
 .tree-container {
-  position: relative; /* WICHTIG: Bezugspunkt für Kugeln */
-  display: flex; justify-content: center;
-  width: 100%; max-width: 600px; margin-top: -160px; z-index: 5;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: -160px;
+  z-index: 5;
 }
 
 .tree {
-  width: 100%; height: auto;
-  filter: drop-shadow(0 0 15px rgba(255,255,255,0.6));
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
   pointer-events: none;
 }
 
 .bubbles, .bubbles2 {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
 .bubble, .bubble2 {
-  position: absolute; border-radius: 50%; object-fit: cover;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.4); transition: transform 0.2s ease;
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease;
   pointer-events: auto;
 }
 
-.bubble  { border: 4px solid white; z-index: 10; }
+.bubble { border: 4px solid white; z-index: 10; }
 .bubble2 { border: 4px solid rgb(254, 0, 0); z-index: 11; }
 
-.bubble:hover, .bubble2:hover { transform: scale(1.2); }
+.bubble:hover, .bubble2:hover {
+  transform: scale(1.2);
+}
 
-/* --- Positionen am Baum --- */
+/* Positionen der Kugeln */
 .bubble-mariah { top: 25%; left: 43%; width: 80px; height: 80px; }
 .bubble-wham   { top: 55%; left: 25%; width: 80px; height: 80px; }
 .bubble-sia    { top: 60%; left: 45%; width: 70px; height: 70px; }
@@ -89,26 +146,57 @@ body {
 .bubble-sia2    { top: 72%; left: 55%; width: 70px; height: 70px; }
 .bubble-justin2 { top: 48%; left: 42%; width: 70px; height: 70px; }
 
-/* --- Tooltip (Sprechblasen-Look) --- */
+/* --- Tooltip (Zentriert & Kompakt) --- */
 .tooltip {
-  position: absolute; background: white; color: #333;
-  padding: 12px 18px; border-radius: 15px; font-size: 14px;
-  line-height: 1.4; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  pointer-events: none; opacity: 0; transition: opacity 0.2s ease;
-  z-index: 9999; min-width: 160px; border: 1px solid #f0f0f0;
+  position: absolute;
+  background: white;
+  color: #bc1111;
+  padding: 12px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.25; /* Steuert den Abstand zwischen allen Zeilen gleichmässig */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 9999;
+  min-width: 180px;
+  border: 1px solid #f0f0f0;
+  text-align: center; /* Zentriert allen Text */
 }
-.tooltip b { color: #bc1111; display: block; font-style: italic; margin-bottom: 4px; }
-.tooltip span { color: #d14d4d; }
 
+.tooltip b.song-title {
+  display: block;
+  font-style: italic;
+  font-weight: 800;
+  text-transform: capitalize; /* Erster Buchstabe Gross */
+  margin-bottom: 0; /* Entfernt den extra Abstand nach der ersten Zeile */
+}
+
+.tooltip span {
+  display: block;
+  margin-top: 2px; /* Minimaler Abstand für die Optik */
+}
+
+/* --- Info-Zettel --- */
 .zettel {
-  background: white; background-image: linear-gradient(#e1e9f1 1px, transparent 1px);
-  background-size: 100% 1.6em; padding: 50px 60px 90px 60px; width: 90%;
-  max-width: 900px; margin: 40px auto 100px auto; color: #000;
-  font-weight: 800; font-style: italic; font-size: 1.4rem; line-height: 1.6em;
+  background: white;
+  background-image: linear-gradient(#e1e9f1 1px, transparent 1px);
+  background-size: 100% 1.6em;
+  padding: 50px 60px 90px 60px;
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto 100px auto;
+  color: #000;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.6em;
   box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.4);
   clip-path: polygon(0% 0%, 100% 0%, 98% 25%, 100% 50%, 99% 75%, 100% 100%, 85% 96%, 72% 99%, 58% 95%, 45% 98%, 30% 94%, 15% 97%, 0% 96%);
 }
 
+/* --- Mobile Anpassungen --- */
 @media (max-width: 768px) {
   .logo-header { margin-top: 50px; }
   .controls { flex-direction: column; gap: 15px; }

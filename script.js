@@ -1,4 +1,3 @@
-// --- ALLES IN EINEM MODULE --- //
 let songStats = []; 
 
 const datePicker = document.querySelector('#datepicker');
@@ -9,14 +8,12 @@ const allBubbles = document.querySelectorAll('.bubble, .bubble2');
 let currentSender = 'both'; 
 let currentDate = null;
 
-// Daten von API laden
 async function getByDate(date, sender) {
     const url = `https://im3.lorenasimonelli.ch/backend/api/getByDate.php?date=${date}&sender=${sender}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
         songStats = Array.isArray(data) ? data : []; 
-        console.log('Daten geladen für:', date, sender, songStats);
         return data;
     } catch (error) {
         console.error('Fehler bei getByDate:', error);
@@ -24,30 +21,25 @@ async function getByDate(date, sender) {
     }
 }
 
-// Tooltip Interaktion
 allBubbles.forEach(bubble => {
     bubble.addEventListener('mouseenter', (e) => {
         const songToFind = e.target.getAttribute('data-song').toLowerCase();
-        
-        // Identifiziere den Sender basierend auf der Kugel-Klasse
-        // .bubble2 = Energy (rot), .bubble = SRF (weiß)
         const isEnergyBubble = e.target.classList.contains('bubble2');
         const targetSender = isEnergyBubble ? "energy" : "srf";
         const stationLabel = isEnergyBubble ? "NRJ" : "SRF 1";
 
-        // Filtert die songStats nach Titel UND dem Sender der Kugel
         const count = songStats.filter(s => {
             const titleMatches = s.title && s.title.toLowerCase().includes(songToFind);
             const senderMatches = s.sender === targetSender;
             return titleMatches && senderMatches;
         }).length;
 
-        // Tooltip befüllen (Design bleibt exakt wie in deinem Screenshot)
+        // Tooltip befüllen mit Klasse für CSS-Styling
         tooltip.innerHTML = `
-            <b style="color: #bc1111; font-style: italic; display: block;">«${e.target.getAttribute('data-song')}»</b>
-            <span style="color: #bc1111;">wurde ${count}x auf<br>${stationLabel} gespielt.</span>
+            <b class="song-title">«${e.target.getAttribute('data-song')}»</b>
+            <span>wurde ${count}x auf<br>${stationLabel} gespielt.</span>
         `;
-        tooltip.style.opacity = '1';
+        tooltip.style.opacity = '1'; 
     });
 
     bubble.addEventListener('mousemove', (e) => {
@@ -60,7 +52,6 @@ allBubbles.forEach(bubble => {
     });
 });
 
-// Sender-Filter (Anzeige der Kugeln)
 function updateBubbles(sender) {
     const bubbleWhite = document.querySelectorAll('.bubble');
     const bubbleRed   = document.querySelectorAll('.bubble2');
@@ -77,7 +68,6 @@ function updateBubbles(sender) {
     }
 }
 
-// EventListener
 datePicker.addEventListener('input', async function() {
     currentDate = datePicker.value;
     await getByDate(currentDate, currentSender);
@@ -93,5 +83,4 @@ senderRadios.forEach(radio => {
     });
 });
 
-// Initialisierung
 updateBubbles(currentSender);
